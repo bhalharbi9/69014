@@ -217,6 +217,25 @@
       text-align:left;
       white-space:pre-wrap;
     }
+    /* Footer */
+.site-footer{
+  margin-top:16px;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(255,255,255,.75);
+  box-shadow: 0 10px 22px rgba(2,6,23,.06);
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  line-height:1.7;
+  backdrop-filter: blur(6px);
+}
+.site-footer .copy{
+  font-weight:900;
+  color:var(--text);
+}
+
   </style>
 </head>
 
@@ -310,9 +329,20 @@
     </aside>
 
   </div>
+  <footer class="site-footer">
+  <div class="copy">  اساسيات برمجة الحاسب || باسم الحربي  ©  <span id="yr"></span></div>
+  
+</footer>
 </div>
 
+
+
+
+
 <script>
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+
 /* =========================================================
    1) تمارين: كل تمرين له body + نموذج حل
    ========================================================= */
@@ -352,7 +382,7 @@ System.out.println("Active: " + active);`,
 `// اكتب الحل هنا
 `,
     model:
-`String name = "Sara";
+`String name = "Ali";
 int age = 19;
 double gpa = 4.8;
 
@@ -413,12 +443,12 @@ System.out.println("Active: " + active);`,
 
   ex4: {
     title: "تمرين 4: دمج نص + رقم",
-    desc: 'عرّف name (String) و points (int) واطبع: "Sara has 10 points"',
+    desc: 'عرّف name (String) و points (int) واطبع: "Ali has 10 points"',
     body:
 `// اكتب الحل هنا
 `,
     model:
-`String name = "Sara";
+`String name = "Ali";
 int points = 10;
 
 System.out.println(name + " has " + points + " points");`,
