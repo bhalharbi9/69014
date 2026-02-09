@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Java Variables</title>
+  <style>
+    :root{
+      --bg:#f4f7f6;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e5e7eb;
+      --shadow: 0 12px 30px rgba(2,6,23,.08);
+      --radius:18px;
+
+      --green:#16a34a;
+      --blue:#3b82f6;
+      --amber:#f59e0b;
+      --red:#ef4444;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans Arabic", "Tajawal", "Cairo", sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 360px at 20% 0%, rgba(22,163,74,.14), transparent 55%),
+        radial-gradient(900px 360px at 80% 10%, rgba(59,130,246,.10), transparent 55%),
+        var(--bg);
+      padding:18px;
+    }
+    .wrap{max-width:1220px;margin:0 auto}
+    header{
+      display:flex; gap:14px; align-items:flex-start; justify-content:space-between;
+      margin-bottom:14px;
+      flex-wrap:wrap;
+    }
+    .title{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(22,163,74,.18), rgba(59,130,246,.12));
+      border:1px solid var(--border);
+      display:grid;place-items:center;
+      box-shadow:var(--shadow);
+      user-select:none;
+    }
+    h1{margin:0;font-size:18px}
+    .sub{margin-top:4px;color:var(--muted);font-size:13px;line-height:1.6}
+
+    .topActions{display:flex; gap:10px; flex-wrap:wrap}
+    button{
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+      transition: transform .08s ease, box-shadow .12s ease;
+      font-weight:800;
+      box-shadow: 0 6px 16px rgba(2,6,23,.06);
+      white-space:nowrap;
+    }
+    button:hover{box-shadow: 0 10px 22px rgba(2,6,23,.10)}
+    button:active{transform:scale(.98)}
+    .btnPrimary{border-color:rgba(59,130,246,.35); background:rgba(59,130,246,.10)}
+    .btnGood{border-color:rgba(22,163,74,.35); background:rgba(22,163,74,.10)}
+    .btnWarn{border-color:rgba(245,158,11,.35); background:rgba(245,158,11,.10)}
+    .btnRed{border-color:rgba(239,68,68,.30); background:rgba(239,68,68,.08)}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.35fr .95fr;
+      gap:14px;
+    }
+    @media(max-width:980px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .cardHead{
+      padding:12px 14px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      border-bottom:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(15,23,42,.02), rgba(15,23,42,0));
+      flex-wrap:wrap;
+    }
+    .cardHead strong{font-size:14px}
+    .cardBody{padding:12px 14px}
+
+    /* ✅ المحرر LTR */
+    textarea{
+      width:100%;
+      min-height:430px;
+      resize:vertical;
+      border-radius:16px;
+      border:1px solid var(--border);
+      outline:none;
+      background:#fbfdff;
+      color:var(--text);
+      padding:12px;
+      font-family:var(--mono);
+      font-size:13px;
+      line-height:1.7;
+      direction:ltr;
+      text-align:left;
+      unicode-bidi: plaintext;
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(2,6,23,.02);
+      font-size:12px;
+      color:var(--muted);
+      user-select:none;
+      flex-wrap:wrap;
+    }
+    .kbd{
+      font-family:var(--mono);
+      font-size:11px;
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+    }
+    .sep{height:1px;background:var(--border);margin:12px 0}
+
+    .out{
+      font-family:var(--mono);
+      font-size:13px;
+      white-space: pre-wrap;
+      background:#fbfdff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px;
+      min-height:150px;
+      direction:ltr;
+      text-align:left;
+    }
+    .muted{color:var(--muted)}
+    .ok{color:var(--green); font-weight:900}
+    .warn{color:var(--amber); font-weight:900}
+    .bad{color:var(--red); font-weight:900}
+
+    .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{
+      font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border);
+      background:#fff; display:inline-flex; align-items:center; gap:8px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:#fbfdff;
+      font-size:12px;
+    }
+    th, td{
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      text-align:right;
+      vertical-align:top;
+    }
+    th{
+      color:var(--muted);
+      background:rgba(2,6,23,.02);
+      font-weight:900;
+    }
+    tr:last-child td{border-bottom:none}
+
+    .exGrid{display:grid; grid-template-columns:1fr; gap:10px}
+    .exCard{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:12px;
+      background:linear-gradient(180deg, rgba(2,6,23,.015), transparent);
+    }
+    .exTitle{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      font-weight:900; font-size:13px;
+      flex-wrap:wrap;
+    }
+    .exDesc{margin:8px 0 0; font-size:12px; color:var(--muted); line-height:1.7}
+    .exBtns{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .mini{font-size:12px; margin:0; color:var(--muted); line-height:1.7}
+
+    .modelBox{
+      margin-top:10px;
+      border:1px dashed rgba(59,130,246,.35);
+      background:rgba(59,130,246,.06);
+      border-radius:14px;
+      padding:10px;
+      display:none;
+    }
+    .modelBox pre{
+      margin:0;
+      font-family:var(--mono);
+      font-size:12px;
+      line-height:1.6;
+      direction:ltr;
+      text-align:left;
+      white-space:pre-wrap;
+    }
+    /* Footer */
+.site-footer{
+  margin-top:16px;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(255,255,255,.75);
+  box-shadow: 0 10px 22px rgba(2,6,23,.06);
+  color:var(--muted);
+  font-size:12px;
+  text-align:center;
+  line-height:1.7;
+  backdrop-filter: blur(6px);
+}
+.site-footer .copy{
+  font-weight:900;
+  color:var(--text);
+}
+
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="title">
+      <div class="logo"></div>
+      <div>
+        <h1> المتغيرات في Java  </h1>
+        
+      </div>
+    </div>
+
+    <div class="topActions">
+      <button class="btnPrimary" id="runBtn">تشغيل ▶</button>
+      <button class="btnWarn" id="scanBtn">فحص الأخطاء 🔎</button>
+      <button class="btnGood" id="checkBtn">تحقق التمرين ✅</button>
+      <button class="btnRed" id="wrapBtn" title="يعيد لف الكود داخل Main/main">إعادة بناء Main ♻</button>
+      <button id="clearBtn">مسح</button>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <section class="card">
+      <div class="cardHead">
+        <strong>المحرر (LTR)</strong>
+        <span class="pill">
+          اختصار: <span class="kbd">Ctrl</span> + <span class="kbd">Enter</span> للتشغيل —
+          يدعم: <span class="kbd">int</span> <span class="kbd">double</span> <span class="kbd">String</span> <span class="kbd">boolean</span> + <span class="kbd">println</span> + <span class="kbd">+</span>
+        </span>
+      </div>
+      <div class="cardBody">
+        <textarea id="code" spellcheck="false"></textarea>
+
+        <div class="sep"></div>
+
+        <strong style="font-size:13px">Scanner (أخطاء شائعة + تعليمية)</strong>
+        <div class="out" id="scanOut" style="min-height:140px; direction:rtl; text-align:right; font-family:var(--sans)">—</div>
+        <p class="mini" style="margin-top:10px">
+          Scanner هنا “تعليمي” وليس Compiler Java، لكنه يرصد: نسيان ; ، اقتباس/أقواس، تكرار تعريف متغير، استخدام متغير قبل تعريفه، عدم توافق نوع بسيط.
+        </p>
+      </div>
+    </section>
+
+    <aside class="card">
+      <div class="cardHead">
+        <strong>التمارين + الناتج + التحقق</strong>
+        <span class="pill">اضغط “تحميل التمرين” ثم حلّ</span>
+      </div>
+
+      <div class="cardBody">
+
+        <div class="exGrid" id="exList"></div>
+
+        <div class="sep"></div>
+
+        <strong style="font-size:13px">الناتج (Output)</strong>
+        <div class="out" id="output">Ready…</div>
+        <div class="tags" id="statusRow"></div>
+
+        <div class="sep"></div>
+
+        <strong style="font-size:13px">المتغيرات الملتقطة</strong>
+        <div style="overflow:auto; margin-top:8px">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:30%">الاسم</th>
+                <th style="width:22%">النوع</th>
+                <th>القيمة</th>
+              </tr>
+            </thead>
+            <tbody id="varsTbody">
+              <tr><td colspan="3" class="muted">لا يوجد متغيرات بعد.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sep"></div>
+
+        <strong style="font-size:13px">نتيجة التحقق</strong>
+        <div class="out" id="checkOut" style="min-height:120px; direction:rtl; text-align:right; font-family:var(--sans)">
+          “نتيجة التحقق” = تقييم الحل حسب المطلوب (هل المتغيرات والطباعة المطلوبة موجودة؟) وليست أخطاء Java كاملة.
+        </div>
+
+        <p class="mini" style="margin-top:10px">ملاحظة: الهدف تدريب المتغيرات والطباعة فقط.</p>
+      </div>
+    </aside>
+
+  </div>
+  <footer class="site-footer">
+  <div class="copy">  اساسيات برمجة الحاسب || باسم الحربي  ©  <span id="yr"></span></div>
+  
+</footer>
+</div>
+
+
+
+
+
+<script>
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* =========================================================
+   1) تمارين: كل تمرين له body + نموذج حل
+   ========================================================= */
+const EX = {
+  ex0: {
+    title: "تمهيدي (مثال)",
+    desc: "شغّل المثال وعدّل القيم ولاحظ تغيّر الناتج.",
+    body:
+`int age = 25;
+double gpa = 4.5;
+String trainee = "Ahmad";
+boolean active = true;
+
+System.out.println("Name: " + trainee);
+System.out.println("Age: " + age);
+System.out.println("GPA: " + gpa);
+System.out.println("Active: " + active);`,
+    model:
+`int age = 25;
+double gpa = 4.5;
+String trainee = "Ahmad";
+boolean active = true;
+
+System.out.println("Name: " + trainee);
+System.out.println("Age: " + age);
+System.out.println("GPA: " + gpa);
+System.out.println("Active: " + active);`,
+    validate: (ctx) => ctx.printed.length
+      ? pass("ممتاز 👍 تم التشغيل وطباعة الناتج.")
+      : fail("أضف System.out.println ثم جرّب مرة أخرى.")
+  },
+
+  ex1: {
+    title: "تمرين 1: طباعة بيانات متدرب",
+    desc: 'أنشئ 3 متغيرات: name (String)، age (int)، gpa (double) ثم اطبع 3 أسطر.',
+    body:
+`// اكتب الحل هنا
+`,
+    model:
+`String name = "Ali";
+int age = 19;
+double gpa = 4.8;
+
+System.out.println("Name: " + name);
+System.out.println("Age: " + age);
+System.out.println("GPA: " + gpa);`,
+    validate: (ctx) => {
+      const v = ctx.env;
+      if (!v.name || v.name.type !== "String") return fail('متغير String باسم "name" غير موجود.');
+      if (!v.age  || v.age.type  !== "int")    return fail('متغير int باسم "age" غير موجود.');
+      if (!v.gpa  || v.gpa.type  !== "double") return fail('متغير double باسم "gpa" غير موجود.');
+      if (ctx.printed.length < 3) return fail("المفترض طباعة 3 أسطر على الأقل.");
+      return pass("صح ✅ المتغيرات والطباعة صحيحة.");
+    }
+  },
+
+  ex2: {
+    title: "تمرين 2: جمع رقمين",
+    desc: 'عرّف a و b (int) ثم sum = a + b واطبع sum (لا تكتبها يدويًا).',
+    body:
+`// اكتب الحل هنا
+`,
+    model:
+`int a = 7;
+int b = 5;
+
+int sum = a + b;
+
+System.out.println("Sum: " + sum);`,
+    validate: (ctx) => {
+      const v = ctx.env;
+      if (!v.a || v.a.type !== "int") return fail('متغير "a" غير موجود أو ليس int.');
+      if (!v.b || v.b.type !== "int") return fail('متغير "b" غير موجود أو ليس int.');
+      if (!v.sum || v.sum.type !== "int") return fail('متغير "sum" غير موجود أو ليس int.');
+      const expected = Math.trunc(Number(v.a.value) + Number(v.b.value));
+      if (Number(v.sum.value) !== expected) return fail(`قيمة sum غير صحيحة. المتوقع: ${expected}`);
+      if (!ctx.printed.join("\\n").includes(String(v.sum.value))) return fail("لم تظهر قيمة sum في الطباعة.");
+      return pass("ممتاز ✅ الجمع صحيح والطباعة صحيحة.");
+    }
+  },
+
+  ex3: {
+    title: "تمرين 3: boolean + طباعة",
+    desc: 'عرّف active (boolean) واطبع قيمته. جرّب true و false.',
+    body:
+`// اكتب الحل هنا
+`,
+    model:
+`boolean active = true;
+System.out.println("Active: " + active);`,
+    validate: (ctx) => {
+      const v = ctx.env;
+      if (!v.active || v.active.type !== "boolean") return fail('متغير "active" غير موجود أو ليس boolean.');
+      if (!ctx.printed.length) return fail("أضف System.out.println لطباعة الرسالة.");
+      return pass("صح ✅.");
+    }
+  },
+
+  ex4: {
+    title: "تمرين 4: دمج نص + رقم",
+    desc: 'عرّف name (String) و points (int) واطبع: "Ali has 10 points"',
+    body:
+`// اكتب الحل هنا
+`,
+    model:
+`String name = "Ali";
+int points = 10;
+
+System.out.println(name + " has " + points + " points");`,
+    validate: (ctx) => {
+      const v = ctx.env;
+      if (!v.name || v.name.type !== "String") return fail('متغير "name" (String) مطلوب.');
+      if (!v.points || v.points.type !== "int") return fail('متغير "points" (int) مطلوب.');
+      const expected = `${v.name.value} has ${v.points.value} points`;
+      if (!ctx.printed.join("\\n").includes(expected)) return fail(`الناتج المتوقع يحتوي: ${expected}`);
+      return pass("ممتاز ✅ الدمج صحيح.");
+    }
+  }
+};
+
+let currentExerciseId = "ex0";
+
+/* =========================================================
+   2) Wrapper: ضمان ظهور Main/main دائمًا
+   ========================================================= */
+const WRAP_PREFIX =
+`public class Main {
+  public static void main(String[] args) {
+
+`;
+const WRAP_SUFFIX =
+`
+  }
+}
+`;
+
+function hasMainWrapper(code){
+  return /public\s+class\s+Main/.test(code) && /static\s+void\s+main\s*\(\s*String\[\]\s+args\s*\)/.test(code);
+}
+
+function extractBodyFromWrapped(code){
+  // best effort: get between main's { and last }
+  // If fails, return full code.
+  const idx = code.indexOf("public static void main");
+  if (idx < 0) return code;
+  const from = code.indexOf("{", idx);
+  if (from < 0) return code;
+  const to = code.lastIndexOf("}");
+  if (to < 0 || to <= from) return code;
+  const inner = code.slice(from+1, to); // includes maybe class brace
+  // remove last class brace content if any by trimming a trailing "}" leftover
+  return inner.trim();
+}
+
+function wrapAsMain(body){
+  return WRAP_PREFIX + (body || "").trim() + WRAP_SUFFIX;
+}
+
+function ensureWrapped(code){
+  if (hasMainWrapper(code)) return code;
+  return wrapAsMain(code);
+}
+
+/* =========================================================
+   3) UI Elements
+   ========================================================= */
+const codeEl = document.getElementById("code");
+const outEl  = document.getElementById("output");
+const scanOutEl = document.getElementById("scanOut");
+const varsTbody = document.getElementById("varsTbody");
+const statusRow = document.getElementById("statusRow");
+const checkOutEl = document.getElementById("checkOut");
+const exListEl = document.getElementById("exList");
+
+/* =========================================================
+   4) Rendering Exercises + Model Answer Toggle
+   ========================================================= */
+function renderExercises(){
+  const ids = Object.keys(EX);
+  exListEl.innerHTML = ids.map(id => {
+    const e = EX[id];
+    const active = (id === currentExerciseId);
+
+    return `
+      <div class="exCard" style="border-color:${active ? 'rgba(59,130,246,.35)' : 'var(--border)'}">
+        <div class="exTitle">
+          <div>${escapeHtml(e.title)} ${active ? '<span class="tag" style="border-color:rgba(59,130,246,.35);background:rgba(59,130,246,.08)">مختار</span>' : ''}</div>
+          <div class="exBtns" style="margin-top:0">
+            <button class="btnGood" data-load="${id}">تحميل التمرين</button>
+            <button class="btnPrimary" data-select="${id}">اختيار</button>
+           <!-- <button class="btnWarn" data-model="${id}" title="إظهار/إخفاء الحل النموذجي">💡 الحل النموذجي</button>-->
+          </div>
+        </div>
+
+        <p class="exDesc">${escapeHtml(e.desc)}</p>
+
+        <div class="modelBox" id="model_${id}">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px">
+            <strong style="font-size:12px;color:var(--muted)">الحل النموذجي (للمعلم/المراجعة)</strong>
+            <button class="btnPrimary" data-usemodel="${id}" title="وضع الحل النموذجي داخل المحرر">استخدمه في المحرر</button>
+          </div>
+          <pre>${escapeHtml(wrapAsMain(e.model))}</pre>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  exListEl.querySelectorAll("[data-select]").forEach(btn=>{
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-select");
+      selectExercise(id);
+      checkOutEl.textContent = "تم اختيار التمرين. اضغط “تحميل التمرين” لوضع قالب Main + body.";
+    });
+  });
+
+  exListEl.querySelectorAll("[data-load]").forEach(btn=>{
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-load");
+      selectExercise(id);
+
+      // ✅ ضع قالب Java الكامل + body
+      const body = EX[id].body?.trim() ? EX[id].body.trim() : EX[id].model.trim();
+      codeEl.value = wrapAsMain(body);
+
+      run();
+      scan();
+      checkOutEl.textContent = "تم تحميل التمرين ✅ (مع قالب Main/main). اكتب الحل ثم اضغط “تحقق التمرين”.";
+      codeEl.focus();
+    });
+  });
+
+  exListEl.querySelectorAll("[data-model]").forEach(btn=>{
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-model");
+      const box = document.getElementById("model_" + id);
+      if (!box) return;
+      box.style.display = (box.style.display === "block") ? "none" : "block";
+    });
+  });
+
+  exListEl.querySelectorAll("[data-usemodel]").forEach(btn=>{
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-usemodel");
+      selectExercise(id);
+      codeEl.value = wrapAsMain(EX[id].model);
+      run();
+      scan();
+      checkOutEl.textContent = "تم وضع الحل النموذجي في المحرر ✅ (للمراجعة).";
+      codeEl.focus();
+    });
+  });
+}
+
+function selectExercise(id){
+  if (!EX[id]) return;
+  currentExerciseId = id;
+  renderExercises();
+}
+
+/* =========================================================
+   5) Scanner متوسط (Level 2)
+   - ; , quotes, parentheses, braces
+   - duplicate variable declaration
+   - use-before-declare (inside simple expressions)
+   - basic type mismatch on assignment/declaration (int/double/boolean/String)
+   ========================================================= */
+function stripNoise(src){
+  let s = src.replace(/\/\*[\s\S]*?\*\//g, "");
+  s = s.replace(/\/\/.*$/gm, "");
+  return s;
+}
+
+function scanCodeL2(raw){
+  const issues = [];
+  const src = stripNoise(raw);
+  const lines = src.split("\n");
+
+  // overall braces
+  const ob = (src.match(/{/g) || []).length;
+  const cb = (src.match(/}/g) || []).length;
+  if (ob !== cb){
+    issues.push(`ملاحظة: عدد الأقواس { } غير متوازن. (قد يؤثر في Java الحقيقي)`);
+  }
+
+  // symbol checks per line + variables tracking
+  const env = {}; // name -> type
+  const declaredOrder = []; // for debugging
+  const isIgnorable = (t) => {
+    const s = t.trim();
+    if (!s) return true;
+    if (/^(public\s+class|class)\b/.test(s)) return true;
+    if (/^(public\s+static\s+void\s+main)\b/.test(s)) return true;
+    if (s === "{" || s === "}") return true;
+    return false;
+  };
+
+  // helper: find identifiers in expression (rough)
+  function extractIdentifiers(expr){
+    // remove string literals
+    const noStrings = expr.replace(/"([^"\\]|\\.)*"/g, "");
+    // identifiers
+    const m = noStrings.match(/\b[A-Za-z_]\w*\b/g) || [];
+    // filter keywords and types and System/out/println
+    const blacklist = new Set(["int","double","boolean","String","true","false","System","out","println","public","class","static","void","main","args","return","new"]);
+    return m.filter(x => !blacklist.has(x));
+  }
+
+  function looksLikeStatement(trimmed){
+    return /^(int|double|String|boolean)\s+/.test(trimmed) ||
+           /^[A-Za-z_]\w*\s*=/.test(trimmed) ||
+           /^System\.out\.println\s*\(/.test(trimmed);
+  }
+
+  for (let i=0;i<lines.length;i++){
+    const ln = i+1;
+    const line = lines[i];
+    if (isIgnorable(line)) continue;
+
+    const trimmed = line.trim();
+
+    // quotes count (rough)
+    const quoteCount = (line.match(/"/g) || []).length;
+    if (quoteCount % 2 !== 0){
+      issues.push(`سطر ${ln}: يبدو أنك لم تغلق علامة الاقتباس " بشكل صحيح.`);
+    }
+
+    // parentheses balance (rough)
+    const openP = (line.match(/\(/g) || []).length;
+    const closeP = (line.match(/\)/g) || []).length;
+    if (openP !== closeP){
+      issues.push(`سطر ${ln}: قد يوجد نقص/زيادة في الأقواس ( )`);
+    }
+
+    // semicolon missing for statements
+    if (looksLikeStatement(trimmed) && !trimmed.endsWith(";")){
+      issues.push(`سطر ${ln}: غالبًا نسيت وضع ; في نهاية السطر.`);
+    }
+
+    // declaration: type name = expr;
+    const decl = trimmed.match(/^(int|double|String|boolean)\s+([A-Za-z_]\w*)\s*=\s*(.*)\s*;\s*$/);
+    if (decl){
+      const type = decl[1];
+      const name = decl[2];
+      const expr = decl[3];
+
+      if (env[name]){
+        issues.push(`سطر ${ln}: المتغير "${name}" تم تعريفه مسبقًا (تكرار تعريف).`);
+      } else {
+        env[name] = type;
+        declaredOrder.push(name);
+      }
+
+      // use-before-declare in expr
+      const ids = extractIdentifiers(expr);
+      ids.forEach(id=>{
+        if (!env[id]){
+          issues.push(`سطر ${ln}: تستخدم المتغير "${id}" قبل تعريفه.`);
+        }
+      });
+
+      // basic type mismatch check (very rough)
+      const tIssue = checkTypeCompatibility(type, expr, env);
+      if (tIssue) issues.push(`سطر ${ln}: ${tIssue}`);
+      continue;
+    }
+
+    // assignment: name = expr;
+    const asg = trimmed.match(/^([A-Za-z_]\w*)\s*=\s*(.*)\s*;\s*$/);
+    if (asg){
+      const name = asg[1];
+      const expr = asg[2];
+
+      if (!env[name]){
+        issues.push(`سطر ${ln}: إسناد لمتغير "${name}" قبل تعريفه.`);
+      } else {
+        // use-before-declare in expr
+        const ids = extractIdentifiers(expr);
+        ids.forEach(id=>{
+          if (!env[id]){
+            issues.push(`سطر ${ln}: تستخدم المتغير "${id}" قبل تعريفه.`);
+          }
+        });
+
+        const tIssue = checkTypeCompatibility(env[name], expr, env);
+        if (tIssue) issues.push(`سطر ${ln}: ${tIssue}`);
+      }
+      continue;
+    }
+
+    // println: System.out.println(...)
+    const pl = trimmed.match(/^System\.out\.println\s*\((.*)\)\s*;\s*$/);
+    if (pl){
+      const expr = pl[1];
+      const ids = extractIdentifiers(expr);
+      ids.forEach(id=>{
+        if (!env[id]){
+          issues.push(`سطر ${ln}: في println تستخدم "${id}" قبل تعريفه.`);
+        }
+      });
+      continue;
+    }
+  }
+
+  return issues;
+}
+
+function checkTypeCompatibility(targetType, expr, env){
+  // rough heuristics:
+  const e = expr.trim();
+
+  // String: always ok
+  if (targetType === "String") return null;
+
+  // boolean: must be true/false or a boolean variable
+  if (targetType === "boolean"){
+    if (e === "true" || e === "false") return null;
+    if (/^[A-Za-z_]\w*$/.test(e) && env[e] === "boolean") return null;
+    return 'عدم توافق نوع: boolean يجب أن يستقبل true/false أو متغير boolean.';
+  }
+
+  // int/double: allow numeric literal or numeric variable or sum of numeric parts
+  if (targetType === "int" || targetType === "double"){
+    // remove strings
+    const noStrings = e.replace(/"([^"\\]|\\.)*"/g, "");
+    // if contains true/false => mismatch
+    if (/\b(true|false)\b/.test(noStrings)) return 'عدم توافق نوع: قيمة منطقية داخل تعبير عددي.';
+    // if contains String variable in numeric target
+    const ids = (noStrings.match(/\b[A-Za-z_]\w*\b/g) || []).filter(x => !["int","double","boolean","String","System","out","println"].includes(x));
+    for (const id of ids){
+      if (env[id] === "String") return 'عدم توافق نوع: لا يمكن استخدام String داخل تعبير عددي.';
+      if (env[id] === "boolean") return 'عدم توافق نوع: لا يمكن استخدام boolean داخل تعبير عددي.';
+    }
+    // allow numeric literals and + operations
+    // If it has characters beyond digits/dot/space/+/-/identifiers => ignore
+    return null;
+  }
+
+  return null;
+}
+
+function scan(){
+  const issues = scanCodeL2(codeEl.value || "");
+  if (!issues.length){
+    scanOutEl.innerHTML = `<span class="ok">✓</span> لا توجد أخطاء تعليمية واضحة.`;
+  } else {
+    scanOutEl.textContent = issues.map(x => "• " + x).join("\n");
+  }
+  return issues;
+}
+
+/* =========================================================
+   6) Engine (محاكاة) + validate
+   ========================================================= */
+function splitByPlus(expr){
+  const out = [];
+  let cur = "";
+  let inQuotes = false;
+  for (let i=0;i<expr.length;i++){
+    const ch = expr[i];
+    if (ch === '"' && expr[i-1] !== "\\"){
+      inQuotes = !inQuotes;
+      cur += ch;
+      continue;
+    }
+    if (!inQuotes && ch === "+"){
+      out.push(cur);
+      cur = "";
+      continue;
+    }
+    cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+function castToType(val, type){
+  if (type === "String") return {value: String(val ?? "")};
+  if (type === "boolean"){
+    if (typeof val === "boolean") return {value: val};
+    if (val === "true") return {value:true};
+    if (val === "false") return {value:false};
+    return {error:"لا يمكن إسناد قيمة غير منطقية إلى boolean."};
+  }
+  if (type === "int"){
+    const n = Number(val);
+    if (Number.isNaN(n)) return {error:"لا يمكن إسناد قيمة غير رقمية إلى int."};
+    return {value: Math.trunc(n)};
+  }
+  if (type === "double"){
+    const n = Number(val);
+    if (Number.isNaN(n)) return {error:"لا يمكن إسناد قيمة غير رقمية إلى double."};
+    return {value: n};
+  }
+  return {value: val};
+}
+
+function evalAtom(token, env, notes, lineNo){
+  const t = token.trim();
+  if (!t) return "";
+  const strMatch = t.match(/^"([\s\S]*)"$/);
+  if (strMatch) return strMatch[1];
+  if (t === "true") return true;
+  if (t === "false") return false;
+  if (/^[+-]?\d+(\.\d+)?$/.test(t)) return Number(t);
+  if (/^[A-Za-z_]\w*$/.test(t)){
+    if (!env[t]){
+      notes.push(`Line ${lineNo}: "${t}" is not defined.`);
+      return "";
+    }
+    return env[t].value;
+  }
+  notes.push(`Line ${lineNo}: Unsupported expr part: "${t}"`);
+  return t;
+}
+
+function evalExpr(expr, env, notes, lineNo){
+  const parts = splitByPlus(expr);
+  if (parts.length === 1) return evalAtom(parts[0], env, notes, lineNo);
+
+  const vals = parts.map(p => evalAtom(p, env, notes, lineNo));
+  const anyString = vals.some(v => typeof v === "string");
+  if (anyString) return vals.map(v => String(v ?? "")).join("");
+
+  let sum = 0;
+  for (const v of vals){
+    const n = Number(v);
+    if (Number.isNaN(n)){
+      notes.push(`Line ${lineNo}: cannot convert to number in: ${expr.trim()}`);
+      return vals.map(x => String(x)).join("");
+    }
+    sum += n;
+  }
+  return sum;
+}
+
+function runEngine(raw){
+  const cleaned = stripNoise(raw);
+  const lines = cleaned.split("\n").map(l => l.trim()).filter(Boolean);
+
+  const env = {};
+  const printed = [];
+  const notes = [];
+
+  for (let i=0;i<lines.length;i++){
+    const lineNo = i+1;
+    const line = lines[i];
+
+    const pl = line.match(/^System\.out\.println\s*\((.*)\)\s*;\s*$/);
+    if (pl){
+      const val = evalExpr(pl[1], env, notes, lineNo);
+      printed.push(String(val));
+      continue;
+    }
+
+    const decl = line.match(/^(int|double|String|boolean)\s+([A-Za-z_]\w*)\s*=\s*(.*)\s*;\s*$/);
+    if (decl){
+      const type = decl[1], name = decl[2], expr = decl[3];
+      const val = evalExpr(expr, env, notes, lineNo);
+      const casted = castToType(val, type);
+      if (casted.error) notes.push(`Line ${lineNo}: ${casted.error}`);
+      else env[name] = {type, value: casted.value};
+      continue;
+    }
+
+    const asg = line.match(/^([A-Za-z_]\w*)\s*=\s*(.*)\s*;\s*$/);
+    if (asg){
+      const name = asg[1], expr = asg[2];
+      if (!env[name]){
+        notes.push(`Line ${lineNo}: "${name}" assigned before declaration.`);
+      } else {
+        const val = evalExpr(expr, env, notes, lineNo);
+        const casted = castToType(val, env[name].type);
+        if (casted.error) notes.push(`Line ${lineNo}: ${casted.error}`);
+        else env[name].value = casted.value;
+      }
+    }
+  }
+
+  return { env, printed, notes };
+}
+
+function renderVars(env){
+  const keys = Object.keys(env);
+  if (!keys.length){
+    varsTbody.innerHTML = `<tr><td colspan="3" class="muted">لا يوجد متغيرات بعد.</td></tr>`;
+    return;
+  }
+  varsTbody.innerHTML = keys.map(k => {
+    const v = env[k];
+    const valueStr = (v.type === "String") ? `"${String(v.value)}"` : String(v.value);
+    return `
+      <tr>
+        <td><span class="kbd">${escapeHtml(k)}</span></td>
+        <td>${escapeHtml(v.type)}</td>
+        <td style="font-family:var(--mono)">${escapeHtml(valueStr)}</td>
+      </tr>
+    `;
+  }).join("");
+}
+
+function renderStatus(ctx, scanIssues){
+  const pills = [];
+  pills.push(`<span class="tag">${scanIssues.length ? `<span class="warn">⚠</span> Scanner: ${scanIssues.length}` : `<span class="ok">✓</span> Scanner: ممتاز`}</span>`);
+  pills.push(`<span class="tag">Printed: <strong>${ctx.printed.length}</strong></span>`);
+  pills.push(`<span class="tag">Vars: <strong>${Object.keys(ctx.env).length}</strong></span>`);
+  pills.push(`<span class="tag">${ctx.notes.length ? `<span class="warn">⚠</span> Notes: ${ctx.notes.length}` : `<span class="ok">✓</span> Notes: 0`}</span>`);
+  statusRow.innerHTML = pills.join("");
+}
+
+function run(){
+  // ✅ دائمًا شغّل على نسخة ملفوفة (حتى لو الطالب حذف الغلاف)
+  const raw = ensureWrapped(codeEl.value || "");
+  // لا نغيّر النص تلقائيًا هنا حتى لا نربك الطالب أثناء الكتابة
+  const scanIssues = scanCodeL2(raw);
+
+  const ctx = runEngine(raw);
+  outEl.textContent = ctx.printed.length ? ctx.printed.join("\n") : "No println output.";
+
+  if (ctx.notes.length){
+    outEl.textContent += "\n\n---\nNotes:\n" + ctx.notes.map(x => "- " + x).join("\n");
+  }
+
+  renderVars(ctx.env);
+  renderStatus(ctx, scanIssues);
+  return {ctx, scanIssues};
+}
+
+/* validate */
+function pass(msg){ return {ok:true, msg}; }
+function fail(msg){ return {ok:false, msg}; }
+
+function checkExercise(){
+  const {ctx, scanIssues} = run();
+
+  // لو Scanner فيه أخطاء قوية (مثل ; أو quotes) نوقف التحقق
+  const fatal = scanIssues.some(x =>
+    x.includes("نسيت وضع ;") || x.includes("الاقتباس") || x.includes("الأقواس")
+  );
+  if (fatal){
+    checkOutEl.textContent =
+      "⚠ أصلح ملاحظات Scanner أولًا ثم أعد التحقق:\n\n" +
+      scanIssues.slice(0,10).map(x => "• " + x).join("\n");
+    return;
+  }
+
+  const ex = EX[currentExerciseId] || EX.ex0;
+  const res = ex.validate(ctx);
+
+  if (res.ok){
+    checkOutEl.innerHTML = `<span class="ok">✅ صحيح</span>\n\n${escapeHtml(res.msg)}`;
+  } else {
+    checkOutEl.innerHTML = `<span class="bad">❌ غير صحيح</span>\n\n${escapeHtml(res.msg)}`;
+  }
+}
+
+/* =========================================================
+   7) Helpers + Events
+   ========================================================= */
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+document.getElementById("runBtn").addEventListener("click", () => {
+  run();
+  // عرض scan بالعربية في صندوق Scanner
+  const issues = scan();
+});
+
+document.getElementById("scanBtn").addEventListener("click", scan);
+document.getElementById("checkBtn").addEventListener("click", checkExercise);
+
+document.getElementById("wrapBtn").addEventListener("click", () => {
+  // يعيد بناء القالب داخل المحرر نفسه (يصلح إذا الطالب حذف الغلاف)
+  const current = codeEl.value || "";
+  const body = hasMainWrapper(current) ? extractBodyFromWrapped(current) : current;
+  codeEl.value = wrapAsMain(body);
+  scan();
+  run();
+  checkOutEl.textContent = "تم إعادة بناء قالب Main/main ✅";
+});
+
+document.getElementById("clearBtn").addEventListener("click", () => {
+  codeEl.value = wrapAsMain("");
+  outEl.textContent = "Ready…";
+  scanOutEl.textContent = "—";
+  varsTbody.innerHTML = `<tr><td colspan="3" class="muted">لا يوجد متغيرات بعد.</td></tr>`;
+  statusRow.innerHTML = "";
+  checkOutEl.textContent = "اختر تمرين ثم اضغط “تحميل التمرين”.";
+  codeEl.focus();
+});
+
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    run();
+    scan();
+  }
+});
+
+/* =========================================================
+   8) Init
+   ========================================================= */
+function init(){
+  renderExercises();
+  selectExercise("ex0");
+  codeEl.value = wrapAsMain(EX.ex0.model);
+  scan();
+  run();
+}
+init();
+</script>
+
+</body>
+</html>
